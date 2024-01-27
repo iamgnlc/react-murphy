@@ -4,11 +4,9 @@ import {
   GlobalStyle,
   Container,
   Wrapper,
-  MainTitle,
+  Title,
   Law,
   Label,
-  SubTitle,
-  SubLaw,
   List,
   ListElement,
   ErrorMessage,
@@ -30,6 +28,7 @@ const App = () => {
       }
       const data = await response.json();
       setData(data);
+      setError(null);
     } catch (error) {
       setError(error.message);
     }
@@ -49,7 +48,7 @@ const App = () => {
 
   const renderLaw = (item) => (
     <>
-      {item.title && <MainTitle>{item.title}</MainTitle>}
+      {item.title && <Title>{item.title}</Title>}
       {item.law && <Law>{item.law}</Law>}
     </>
   );
@@ -62,7 +61,7 @@ const App = () => {
             <Law>{law}</Law>
           ) : (
             <>
-              <SubTitle>{law.title}</SubTitle>
+              <Title small>{law.title}</Title>
               <Law>{law.law}</Law>
             </>
           )}
@@ -73,8 +72,8 @@ const App = () => {
 
   const renderSub = (item) => (
     <>
-      {item.title && <SubTitle>{item.title}</SubTitle>}
-      {item.law && <SubLaw>{item.law}</SubLaw>}
+      {item.title && <Title small>{item.title}</Title>}
+      {item.law && <Law small>{item.law}</Law>}
     </>
   );
 

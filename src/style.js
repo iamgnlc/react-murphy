@@ -10,14 +10,13 @@ const frame = css`
   border: calc(2 * var(--size)) solid #0000;
   outline-offset: calc(-1 * var(--size));
   background: conic-gradient(from 90deg at 1px 1px, #0000 25%, #aaa 0);
-  outline: 1px solid #222;
+  outline: 1px solid #333;
 `;
 
 const childrenMargin = css`
   *:first-child {
     margin-top: 0;
   }
-
   *:last-child {
     margin-bottom: 0;
   }
@@ -57,7 +56,6 @@ export const Container = styled.div`
 
   flex-wrap: wrap;
   font-family: Georgia, serif;
-  font-style: italic;
   font-size: 150%;
   height: 100%;
   line-height: 2.25rem;
@@ -71,34 +69,26 @@ export const Wrapper = styled.div`
   animation: 1s ${fader} alternate;
 `;
 
-export const MainTitle = styled.p`
-  font-size: 1.5em;
-  color: #222;
-  text-shadow: 1px 1px 1px #ccc;
+export const Title = styled.p.attrs((props) => props)`
+  font-size: ${({ small }) => (small ? 1.05 : 1.5)}em;
+  font-style: normal;
+  line-height: 2.75rem;
+  color: #333;
+  text-shadow: 1px 1px 0px #ccc;
 `;
 
-export const Law = styled.p`
-  font-size: 1em;
+export const Law = styled.p.attrs((props) => props)`
+  font-size: ${({ small }) => (small ? 0.825 : 1)}em;
+  font-style: italic;
   color: #666;
-  text-shadow: 1px 1px 1px #ccc;
+  text-shadow: 1px 1px 0px #ccc;
 `;
 
 export const Label = styled.p`
   font-size: 0.7em;
+  font-style: italic;
   margin: -0.75rem 0;
   color: #aaa;
-`;
-
-export const SubTitle = styled.p`
-  font-size: 1.05em;
-  color: #222;
-  text-shadow: 1px 1px 1px #ccc;
-`;
-
-export const SubLaw = styled.p`
-  font-size: 0.825em;
-  color: #666;
-  text-shadow: 1px 1px 1px #ccc;
 `;
 
 export const List = styled.ul`
@@ -118,4 +108,5 @@ export const ListElement = styled.li`
 
 export const ErrorMessage = styled.div`
   color: #c00;
+  text-shadow: 1px 1px 0px #fcc;
 `;
