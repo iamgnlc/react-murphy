@@ -105,15 +105,6 @@ export const List = styled.ul`
   ${childrenMargin};
 
   padding-left: 2rem;
-
-  li {
-    list-style: circle;
-    margin-bottom: 1rem;
-
-    * {
-      margin: 0;
-    }
-  }
 `;
 
 export const ListElement = styled.li`

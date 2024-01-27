@@ -14,7 +14,6 @@ import {
   ErrorMessage,
 } from "./style";
 
-// const API_URL = "http://127.0.0.1:8000/";
 const API_URL = "https://murphy.gnlc.me/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
@@ -79,18 +78,18 @@ const App = () => {
     </>
   );
 
-  const renderCorollary = ({ corollary }) => (
+  const renderCorollary = ({ corollary: item }) => (
     <>
       <Label>Corollary:</Label>
-      {renderSub(corollary)}
+      {renderSub(item)}
     </>
   );
 
-  const renderCorollaries = ({ corollaries }) => (
+  const renderCorollaries = ({ corollaries: items }) => (
     <>
       <Label>Corollaries:</Label>
       <List>
-        {corollaries.map((item) => (
+        {items.map((item) => (
           <ListElement>{renderSub(item)}</ListElement>
         ))}
       </List>
