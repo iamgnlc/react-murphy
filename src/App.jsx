@@ -12,11 +12,14 @@ import {
   ErrorMessage,
 } from "./style";
 
+import { Loading } from "./Loading";
+
 const API_URL = "https://murphy.gnlc.me/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
 const App = () => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -31,10 +34,13 @@ const App = () => {
       setError(null);
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
 
     if (Boolean(REFRESH_INTERVAL)) {
@@ -107,6 +113,7 @@ const App = () => {
   return (
     <Container>
       <GlobalStyle />
+      {loading && <Loading />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {data?.data?.map((item, index) => renderWrapper(item, index))}
     </Container>
