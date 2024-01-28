@@ -1,7 +1,20 @@
 {
   "name": "react-murphy",
   "version": "0.1.0",
+  "author": {
+    "name": "GNLC",
+    "url": "https://github.com/iamgnlc"
+  },
+  "license": "MIT",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "firebase deploy",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,15 +25,15 @@
     "react-loading": "^2.0.3",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.8",
+    "typescript": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "predeploy": "yarn build",
-    "deploy": "firebase deploy",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.11.9",
+    "@types/react": "^18.2.48",
+    "@types/react-animations": "^1.0.3",
+    "@types/react-dom": "^18.2.18"
   },
   "eslintConfig": {
     "extends": [
