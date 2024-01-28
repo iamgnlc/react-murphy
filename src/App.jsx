@@ -92,7 +92,7 @@ const App = () => {
     </>
   );
 
-  const renderWrapper = (item, index) => (
+  const renderWrapper = (item) => (
     <Wrapper key={JSON.stringify(item)}>
       {renderLaw(item)}
       {item.laws && renderList(item)}
