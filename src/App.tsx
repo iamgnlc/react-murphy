@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, type ReactNode } from "react";
 
 import {
   GlobalStyle,
@@ -10,18 +10,21 @@ import {
   List,
   ListElement,
   ErrorMessage,
-} from "./style";
+} from "./styles";
 
 import { Loading } from "./Loading";
+
+import { Item, Corollary } from "./types/item.interface";
+import { Size } from "./types/size.interface";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
-const App = () => {
+const App = (): ReactNode => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<{ data: Item[] }>();
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
@@ -33,7 +36,7 @@ const App = () => {
       const data = await response.json();
       setData(data);
       setError(null);
-    } catch (error) {
+    } catch (error: any) {
       setError(error.message);
     } finally {
       setLoading(false);
@@ -53,16 +56,16 @@ const App = () => {
     }
   }, []);
 
-  const renderLaw = (item, size) => (
+  const renderLaw = (item: Item, size?: { [key: string]: Size["size"] }) => (
     <>
       {item.title && <Title size={size?.title}>{item.title}</Title>}
       {item.law && <Law size={size?.law}>{item.law}</Law>}
     </>
   );
 
-  const renderList = (item) => (
+  const renderList = (item: Item) => (
     <List>
-      {item.laws.map((law) => (
+      {item.laws?.map((law) => (
         <ListElement>
           {typeof law === "string" ? (
             <Law>{law}</Law>
@@ -74,30 +77,32 @@ const App = () => {
     </List>
   );
 
-  const renderCorollary = ({ corollary: item }) => (
+  const renderCorollary = (corollary: Corollary) => (
     <>
       <Label>Corollary:</Label>
-      {renderLaw(item, { title: "s", law: "s" })}
+      {renderLaw(corollary, { title: "s", law: "s" })}
     </>
   );
 
-  const renderCorollaries = ({ corollaries: items }) => (
+  const renderCorollaries = (corollaries: Corollary[]) => (
     <>
       <Label>Corollaries:</Label>
       <List>
-        {items.map((item) => (
-          <ListElement>{renderLaw(item, { title: "s", law: "s" })}</ListElement>
+        {corollaries.map((corollary) => (
+          <ListElement>
+            {renderLaw(corollary, { title: "s", law: "s" })}
+          </ListElement>
         ))}
       </List>
     </>
   );
 
-  const renderWrapper = (item) => (
+  const renderWrapper = (item: Item) => (
     <Wrapper key={JSON.stringify(item)}>
       {renderLaw(item)}
       {item.laws && renderList(item)}
-      {item.corollary && renderCorollary(item)}
-      {item.corollaries && renderCorollaries(item)}
+      {item.corollary && renderCorollary(item.corollary)}
+      {item.corollaries && renderCorollaries(item.corollaries)}
     </Wrapper>
   );
 
@@ -106,7 +111,7 @@ const App = () => {
       <GlobalStyle />
       {loading && <Loading />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {data?.data?.map((item, index) => renderWrapper(item, index))}
+      {data?.data?.map((item: Item) => renderWrapper(item))}
     </Container>
   );
 };
