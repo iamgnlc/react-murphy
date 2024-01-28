@@ -74,14 +74,14 @@ export const Title = styled.p.attrs((props) => props)`
   font-style: normal;
   line-height: 2.75rem;
   color: #333;
-  text-shadow: 1px 1px 0px #ccc;
+  text-shadow: 1px 1px 1px #ccc;
 `;
 
 export const Law = styled.p.attrs((props) => props)`
   font-size: ${({ small }) => (small ? 0.825 : 1)}em;
   font-style: italic;
   color: #666;
-  text-shadow: 1px 1px 0px #ccc;
+  text-shadow: 1px 1px 1px #ccc;
 `;
 
 export const Label = styled.p`
@@ -108,5 +108,5 @@ export const ListElement = styled.li`
 
 export const ErrorMessage = styled.div`
   color: #c00;
-  text-shadow: 1px 1px 0px #fcc;
+  text-shadow: 1px 1px 1px #fcc;
 `;
