@@ -70,7 +70,17 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.p.attrs((props) => props)`
-  font-size: ${({ small }) => (small ? 1.05 : 1.5)}em;
+  font-size: ${(props) => {
+    switch (props.size) {
+      case "s":
+        return 1.05;
+      case "l":
+        return 2.5;
+      default:
+        return 1.5;
+    }
+  }}em;
+
   font-style: normal;
   line-height: 2.75rem;
   color: #333;
@@ -78,7 +88,17 @@ export const Title = styled.p.attrs((props) => props)`
 `;
 
 export const Law = styled.p.attrs((props) => props)`
-  font-size: ${({ small }) => (small ? 0.825 : 1)}em;
+  font-size: ${(props) => {
+    switch (props.size) {
+      case "s":
+        return 0.825;
+      case "l":
+        return 1.75;
+      default:
+        return 1;
+    }
+  }}em;
+
   font-style: italic;
   color: #666;
   text-shadow: 1px 1px 1px #ccc;

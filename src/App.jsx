@@ -15,6 +15,7 @@ import {
 import { Loading } from "./Loading";
 
 const API_URL = "https://murphy.gnlc.me/";
+// const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
@@ -52,41 +53,31 @@ const App = () => {
     }
   }, []);
 
-  const renderLaw = (item) => (
+  const renderLaw = (item, size) => (
     <>
-      {item.title && <Title>{item.title}</Title>}
-      {item.law && <Law>{item.law}</Law>}
+      {item.title && <Title size={size?.title}>{item.title}</Title>}
+      {item.law && <Law size={size?.law}>{item.law}</Law>}
     </>
   );
 
-  const renderLaws = (item) => (
+  const renderList = (item) => (
     <List>
       {item.laws.map((law) => (
         <ListElement>
           {typeof law === "string" ? (
             <Law>{law}</Law>
           ) : (
-            <>
-              <Title small>{law.title}</Title>
-              <Law>{law.law}</Law>
-            </>
+            renderLaw(law, { title: "s" })
           )}
         </ListElement>
       ))}
     </List>
   );
 
-  const renderSub = (item) => (
-    <>
-      {item.title && <Title small>{item.title}</Title>}
-      {item.law && <Law small>{item.law}</Law>}
-    </>
-  );
-
   const renderCorollary = ({ corollary: item }) => (
     <>
       <Label>Corollary:</Label>
-      {renderSub(item)}
+      {renderLaw(item, { title: "s", law: "s" })}
     </>
   );
 
@@ -95,16 +86,16 @@ const App = () => {
       <Label>Corollaries:</Label>
       <List>
         {items.map((item) => (
-          <ListElement>{renderSub(item)}</ListElement>
+          <ListElement>{renderLaw(item, { title: "s", law: "s" })}</ListElement>
         ))}
       </List>
     </>
   );
 
   const renderWrapper = (item, index) => (
-    <Wrapper key={`${index}${Math.random()}`}>
+    <Wrapper key={JSON.stringify(item)}>
       {renderLaw(item)}
-      {item.laws && renderLaws(item)}
+      {item.laws && renderList(item)}
       {item.corollary && renderCorollary(item)}
       {item.corollaries && renderCorollaries(item)}
     </Wrapper>
