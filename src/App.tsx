@@ -21,7 +21,7 @@ const API_URL = "https://murphy.gnlc.me/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
-const App = (): ReactNode => {
+const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<{ data: Item[] }>();
   const [error, setError] = useState(null);
