@@ -14,8 +14,8 @@ import {
 
 import { Loading } from "./Loading";
 
-import { Item, Corollary } from "./types/item.interface";
-import { Size } from "./types/size.interface";
+import { type Item, type Corollary } from "./types/item.interface";
+import { type Size } from "./types/size.interface";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
@@ -27,46 +27,53 @@ const App = (): ReactNode => {
   const [data, setData] = useState<{ data: Item[] }>();
   const [error, setError] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await response.json();
-      setData(data);
-      setError(null);
-    } catch (error: any) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
+  const fetchData = async (): Promise<void> => {
+    fetch(API_URL)
+      .then(async (response) => {
+        return await response.json();
+      })
+      .then((data) => {
+        setError(null);
+        setData(data);
+      })
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchData();
+    setData(undefined);
+    void fetchData();
 
-    if (Boolean(REFRESH_INTERVAL)) {
+    if (REFRESH_INTERVAL) {
       const interval = setInterval(() => {
-        fetchData();
+        void fetchData();
       }, REFRESH_INTERVAL);
 
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, []);
 
-  const renderLaw = (item: Item, size?: { [key: string]: Size["size"] }) => (
+  const renderLaw = (
+    item: Item,
+    size?: { [key in string]: Size["size"] }
+  ): ReactNode => (
     <>
       {item.title && <Title size={size?.title}>{item.title}</Title>}
       {item.law && <Law size={size?.law}>{item.law}</Law>}
     </>
   );
 
-  const renderList = (item: Item) => (
+  const renderList = (item: Item): ReactNode => (
     <List>
       {item.laws?.map((law) => (
-        <ListElement>
+        <ListElement key={JSON.stringify(law)}>
           {typeof law === "string" ? (
             <Law>{law}</Law>
           ) : (
@@ -77,19 +84,19 @@ const App = (): ReactNode => {
     </List>
   );
 
-  const renderCorollary = (corollary: Corollary) => (
+  const renderCorollary = (corollary: Corollary): ReactNode => (
     <>
       <Label>Corollary:</Label>
       {renderLaw(corollary, { title: "s", law: "s" })}
     </>
   );
 
-  const renderCorollaries = (corollaries: Corollary[]) => (
+  const renderCorollaries = (corollaries: Corollary[]): ReactNode => (
     <>
       <Label>Corollaries:</Label>
       <List>
         {corollaries.map((corollary) => (
-          <ListElement>
+          <ListElement key={JSON.stringify(corollary)}>
             {renderLaw(corollary, { title: "s", law: "s" })}
           </ListElement>
         ))}
@@ -97,7 +104,7 @@ const App = (): ReactNode => {
     </>
   );
 
-  const renderWrapper = (item: Item) => (
+  const renderWrapper = (item: Item): ReactNode => (
     <Wrapper key={JSON.stringify(item)}>
       {renderLaw(item)}
       {item.laws && renderList(item)}
@@ -116,4 +123,4 @@ const App = (): ReactNode => {
   );
 };
 
-export default App;
+export { App };

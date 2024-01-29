@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { fadeIn } from "react-animations";
 
-import { Size } from "./types/size.interface";
+import { type Size } from "./types/size.interface";
 
 const fader = keyframes`${fadeIn}`;
 
@@ -24,7 +24,7 @@ const childrenMargin = css`
   }
 `;
 
-const vCenter = () => css`
+const vCenter = css`
   display: flex;
   align-items: center;
   justify-content: center;
