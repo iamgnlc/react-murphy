@@ -14,8 +14,7 @@ import {
 
 import { Loading } from "./Loading";
 
-import { type Item, type Corollary } from "./types/item.interface";
-import { type Size } from "./types/size.interface";
+import { type Size, type Item, type Corollary } from "./types/";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
@@ -74,11 +73,7 @@ const App = (): ReactNode => {
     <List>
       {item.laws?.map((law) => (
         <ListElement key={JSON.stringify(law)}>
-          {typeof law === "string" ? (
-            <Law>{law}</Law>
-          ) : (
-            renderLaw(law, { title: "s" })
-          )}
+          {renderLaw(typeof law === "string" ? { law } : law, { title: "s" })}
         </ListElement>
       ))}
     </List>
