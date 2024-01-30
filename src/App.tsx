@@ -1,20 +1,18 @@
-import React, { useState, useEffect, type ReactNode } from "react";
-
-import {
-  GlobalStyle,
-  Container,
-  Wrapper,
-  Title,
-  Law,
-  Label,
-  List,
-  ListElement,
-  ErrorMessage,
-} from "./styles";
+import React, { type ReactNode, useEffect, useState } from "react";
 
 import { Loading } from "./Loading";
-
-import { type Size, type Item, type Corollary } from "./types/";
+import {
+  Container,
+  ErrorMessage,
+  GlobalStyle,
+  Label,
+  Law,
+  List,
+  ListElement,
+  Title,
+  Wrapper,
+} from "./styles";
+import { type Corollary, type Item, type Size } from "./types/";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
@@ -79,20 +77,20 @@ const App: React.FC = () => {
     </List>
   );
 
-  const renderCorollary = (corollary: Corollary): ReactNode => (
+  const renderCorollary = (item: Corollary): ReactNode => (
     <>
       <Label>Corollary:</Label>
-      {renderLaw(corollary, { title: "s", law: "s" })}
+      {renderLaw(item, { title: "s", law: "s" })}
     </>
   );
 
-  const renderCorollaries = (corollaries: Corollary[]): ReactNode => (
+  const renderCorollaries = (items: Corollary[]): ReactNode => (
     <>
       <Label>Corollaries:</Label>
       <List>
-        {corollaries.map((corollary) => (
-          <ListElement key={JSON.stringify(corollary)}>
-            {renderLaw(corollary, { title: "s", law: "s" })}
+        {items.map((item) => (
+          <ListElement key={JSON.stringify(item)}>
+            {renderLaw(item, { title: "s", law: "s" })}
           </ListElement>
         ))}
       </List>

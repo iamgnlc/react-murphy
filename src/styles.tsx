@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle, keyframes, css } from "styled-components";
 import { fadeIn } from "react-animations";
+import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
 import { type Size } from "./types/size.interface";
 
