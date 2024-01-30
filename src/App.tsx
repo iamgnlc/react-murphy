@@ -1,4 +1,4 @@
-import React, { type ReactNode, useEffect, useState } from "react";
+import React, { type ReactElement, useEffect, useState } from "react";
 
 import { Loading } from "./Loading";
 import {
@@ -60,14 +60,14 @@ const App: React.FC = () => {
   const renderLaw = (
     item: Item,
     size?: { [key in string]: Size["size"] }
-  ): ReactNode => (
+  ): ReactElement => (
     <>
       {item.title && <Title size={size?.title}>{item.title}</Title>}
       {item.law && <Law size={size?.law}>{item.law}</Law>}
     </>
   );
 
-  const renderList = (item: Item): ReactNode => (
+  const renderList = (item: Item): ReactElement => (
     <List>
       {item.laws?.map((law) => (
         <ListElement key={JSON.stringify(law)}>
@@ -77,14 +77,14 @@ const App: React.FC = () => {
     </List>
   );
 
-  const renderCorollary = (item: Corollary): ReactNode => (
+  const renderCorollary = (item: Corollary): ReactElement => (
     <>
       <Label>Corollary:</Label>
       {renderLaw(item, { title: "s", law: "s" })}
     </>
   );
 
-  const renderCorollaries = (items: Corollary[]): ReactNode => (
+  const renderCorollaries = (items: Corollary[]): ReactElement => (
     <>
       <Label>Corollaries:</Label>
       <List>
@@ -97,7 +97,7 @@ const App: React.FC = () => {
     </>
   );
 
-  const renderWrapper = (item: Item): ReactNode => (
+  const renderWrapper = (item: Item): ReactElement => (
     <Wrapper key={JSON.stringify(item)}>
       {renderLaw(item)}
       {item.laws && renderList(item)}
