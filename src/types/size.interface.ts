@@ -1,3 +1,3 @@
-export interface Size {
+export interface ISize {
   size?: "s" | "m" | "l";
 }
