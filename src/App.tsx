@@ -6,7 +6,7 @@ import {
   ErrorMessage,
   GlobalStyle,
   Label,
-  Law,
+  Law as StyledLaw,
   List,
   ListElement,
   Title,
@@ -18,6 +18,16 @@ const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
+
+const Law: React.FC<{
+  item: Item;
+  size?: { [key in string]: Size["size"] };
+}> = ({ item, size }): ReactElement => (
+  <>
+    {item.title && <Title size={size?.title}>{item.title}</Title>}
+    {item.law && <StyledLaw size={size?.law}>{item.law}</StyledLaw>}
+  </>
+);
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -57,21 +67,24 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const renderLaw = (
-    item: Item,
-    size?: { [key in string]: Size["size"] }
-  ): ReactElement => (
-    <>
-      {item.title && <Title size={size?.title}>{item.title}</Title>}
-      {item.law && <Law size={size?.law}>{item.law}</Law>}
-    </>
-  );
+  // const renderLaw = (
+  //   item: Item,
+  //   size?: { [key in string]: Size["size"] }
+  // ): ReactElement => (
+  //   <>
+  //     {item.title && <Title size={size?.title}>{item.title}</Title>}
+  //     {item.law && <Law size={size?.law}>{item.law}</Law>}
+  //   </>
+  // );
 
   const renderList = (item: Item): ReactElement => (
     <List>
       {item.laws?.map((law) => (
         <ListElement key={JSON.stringify(law)}>
-          {renderLaw(typeof law === "string" ? { law } : law, { title: "s" })}
+          <Law
+            item={typeof law === "string" ? { law } : law}
+            size={{ title: "s", law: "s" }}
+          />
         </ListElement>
       ))}
     </List>
@@ -80,7 +93,7 @@ const App: React.FC = () => {
   const renderCorollary = (item: Corollary): ReactElement => (
     <>
       <Label>Corollary:</Label>
-      {renderLaw(item, { title: "s", law: "s" })}
+      <Law item={item} size={{ title: "s", law: "s" }} />
     </>
   );
 
@@ -90,7 +103,7 @@ const App: React.FC = () => {
       <List>
         {items.map((item) => (
           <ListElement key={JSON.stringify(item)}>
-            {renderLaw(item, { title: "s", law: "s" })}
+            <Law item={item} size={{ title: "s", law: "s" }} />
           </ListElement>
         ))}
       </List>
@@ -99,7 +112,7 @@ const App: React.FC = () => {
 
   const renderWrapper = (item: Item): ReactElement => (
     <Wrapper key={JSON.stringify(item)}>
-      {renderLaw(item)}
+      <Law item={item} />
       {item.laws && renderList(item)}
       {item.corollary && renderCorollary(item.corollary)}
       {item.corollaries && renderCorollaries(item.corollaries)}
