@@ -10,14 +10,14 @@ import {
   List as StyledList,
   ListElement,
   Title,
-  Wrapper,
+  Wrapper as StyledWrapper,
 } from "./styles";
 import { type ICorollary, type IItem, type ISize } from "./types/";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
 
-const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
+const REFRESH_INTERVAL = 0; // 0 to disable auto-refresh.
 
 interface LawProps {
   item: IItem;
@@ -31,9 +31,9 @@ const Law: React.FC<LawProps> = ({ item, size }): ReactElement => (
   </>
 );
 
-const List: React.FC<{ item: IItem }> = ({ item }): ReactElement => (
+const List: React.FC<{ items: IItem["laws"] }> = ({ items }): ReactElement => (
   <StyledList>
-    {item.laws?.map((law) => (
+    {items?.map((law) => (
       <ListElement key={JSON.stringify(law)}>
         <Law
           item={typeof law === "string" ? { law } : law}
@@ -64,6 +64,15 @@ const Corollaries: React.FC<{ items: ICorollary[] }> = ({
       ))}
     </StyledList>
   </>
+);
+
+const Wrapper: React.FC<{ item: IItem }> = ({ item }): ReactElement => (
+  <StyledWrapper key={JSON.stringify(item)}>
+    <Law item={item} />
+    {item.laws && <List items={item.laws} />}
+    {item.corollary && <Corollary item={item.corollary} />}
+    {item.corollaries && <Corollaries items={item.corollaries} />}
+  </StyledWrapper>
 );
 
 const App: React.FC = () => {
@@ -104,21 +113,14 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const renderWrapper = (item: IItem): ReactElement => (
-    <Wrapper key={JSON.stringify(item)}>
-      <Law item={item} />
-      {item.laws && <List item={item} />}
-      {item.corollary && <Corollary item={item.corollary} />}
-      {item.corollaries && <Corollaries items={item.corollaries} />}
-    </Wrapper>
-  );
-
   return (
     <Container>
       <GlobalStyle />
       {loading && <Loading />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
-      {data?.data?.map((item: IItem) => renderWrapper(item))}
+      {data?.data?.map((item: IItem) => (
+        <Wrapper key={JSON.stringify(item)} item={item} />
+      ))}
     </Container>
   );
 };
