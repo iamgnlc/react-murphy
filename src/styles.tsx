@@ -96,8 +96,8 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Container = styled.div`
   ${verticalCentered}
-
   flex-wrap: wrap;
+
   font-family: Georgia, serif;
   font-size: 150%;
   height: 100%;
@@ -108,8 +108,9 @@ export const Wrapper = styled.div`
   ${frame};
   ${childrenMargin};
 
-  width: 80%;
   animation: 1s ${fader} alternate;
+  flex: 0 0 35%;
+  flex-grow: 0.8;
 `;
 
 export const Title = styled.p<ISize>`
