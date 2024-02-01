@@ -17,7 +17,7 @@ import { type ICorollary, type IItem, type ISize } from "./types/";
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
 
-const REFRESH_INTERVAL = 0; // 0 to disable auto-refresh.
+const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
 interface LawProps {
   item: IItem;

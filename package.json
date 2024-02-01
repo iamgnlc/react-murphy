@@ -8,12 +8,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "ci": "sh ci.sh",
     "deploy": "firebase deploy",
-    "test": "react-scripts test",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
+    "start": "PORT=3035 react-scripts start",
+    "test": "react-scripts test",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -26,7 +26,6 @@
     "react-loading": "^2.0.3",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.8",
-    "typescript": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -43,7 +42,8 @@
     "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-simple-import-sort": "^10.0.0"
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "typescript": "*"
   },
   "eslintConfig": {
     "extends": [
