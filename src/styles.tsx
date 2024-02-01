@@ -59,7 +59,7 @@ export const GlobalStyle = createGlobalStyle`
       --label-colour: #aaa;
       --text-shadow-colour: #000;
       --radial-colour-one: #222;
-      --radial-colour-two: #111;
+      --radial-colour-two: #121212;
       --frame-colour-one: #aaa;
       --frame-colour-two: #ccc;
       --error-colour: #f11;
