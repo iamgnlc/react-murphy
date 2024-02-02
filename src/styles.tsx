@@ -14,9 +14,9 @@ const frame = css`
   background: conic-gradient(
     from 90deg at 1px 1px,
     #0000 25%,
-    var(--frame-colour-one) 0
+    var(--frame-colour-inside) 0
   );
-  outline: 1px solid var(--frame-colour-two);
+  outline: 1px solid var(--frame-colour-outside);
 `;
 
 const childrenMargin = css`
@@ -39,14 +39,13 @@ export const GlobalStyle = createGlobalStyle`
     /* Light mode. */
     @media (prefers-color-scheme: light) {
       --background-colour: #fff;
+      --radial-colour: #ccc;
       --title-colour: #333;
       --text-colour: #666;
       --label-colour: #aaa;
       --text-shadow-colour: #ccc;
-      --radial-colour-one: #fff;
-      --radial-colour-two: #ccc;
-      --frame-colour-one: #aaa;
-      --frame-colour-two: #333;
+      --frame-colour-inside: #aaa;
+      --frame-colour-outside: #333;
       --error-colour: #c00;
       --error-shadow-colour: #faa;
     }
@@ -54,14 +53,13 @@ export const GlobalStyle = createGlobalStyle`
     /* Dark mode. */
     @media (prefers-color-scheme: dark) {
       --background-colour: #222;
+      --radial-colour: #1a1a1a;
       --title-colour: #fff;
       --text-colour: #ddd;
       --label-colour: #aaa;
       --text-shadow-colour: #000;
-      --radial-colour-one: #222;
-      --radial-colour-two: #121212;
-      --frame-colour-one: #aaa;
-      --frame-colour-two: #ccc;
+      --frame-colour-inside: #fff;
+      --frame-colour-outside: #ccc;
       --error-colour: #f11;
       --error-shadow-colour: #800;
     }
@@ -83,6 +81,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     width: 100%;
     overscroll-behavior: none;
+    background-color: var(--background-colour);
   }
 
   #root {
@@ -90,7 +89,7 @@ export const GlobalStyle = createGlobalStyle`
 
     height: 100%;
     min-height: 100vh;
-    background: radial-gradient(var(--radial-colour-one) 75%, var(--radial-colour-two));
+    background: radial-gradient(var(--background-colour) 75%, var(--radial-colour));
   }
 `;
 
