@@ -53,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
     /* Dark mode. */
     @media (prefers-color-scheme: dark) {
       --background-colour: #222;
-      --radial-colour: #1a1a1a;
+      --radial-colour: #101010;
       --title-colour: #fff;
       --text-colour: #ddd;
       --label-colour: #aaa;

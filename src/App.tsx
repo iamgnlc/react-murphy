@@ -1,11 +1,9 @@
 import React, { type ReactElement, useEffect, useState } from "react";
 
-import { Head } from "./Head";
 import { Loading } from "./Loading";
 import {
   Container,
   ErrorMessage,
-  GlobalStyle,
   Label,
   Law as StyledLaw,
   List as StyledList,
@@ -116,8 +114,6 @@ const App: React.FC = () => {
 
   return (
     <Container>
-      <Head />
-      <GlobalStyle />
       {loading && <Loading />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {data?.data?.map((item: IItem) => (
