@@ -1,12 +1,13 @@
 import React, { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const title = "Murphy's Law";
+const title = process.env.REACT_APP_TITLE;
 
 const Head = memo(() => (
   <Helmet>
     <title>{title}</title>
     <meta property="og:title" content={title} />
+    <meta name="author" content={process.env.REACT_APP_AUTHOR} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
