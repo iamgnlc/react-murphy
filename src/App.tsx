@@ -1,5 +1,6 @@
 import React, { type ReactElement, useEffect, useState } from "react";
 
+import { Head } from "./Head";
 import { Loading } from "./Loading";
 import {
   Container,
@@ -115,6 +116,7 @@ const App: React.FC = () => {
 
   return (
     <Container>
+      <Head />
       <GlobalStyle />
       {loading && <Loading />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
