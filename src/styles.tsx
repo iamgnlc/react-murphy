@@ -55,11 +55,11 @@ export const GlobalStyle = createGlobalStyle`
       --background-colour: #222;
       --radial-colour: #101010;
       --title-colour: #fff;
-      --text-colour: #ddd;
+      --text-colour: #cdcdcd;
       --label-colour: #aaa;
       --text-shadow-colour: #000;
       --frame-colour-inside: #fff;
-      --frame-colour-outside: #ccc;
+      --frame-colour-outside: #cdcdcd;
       --error-colour: #f11;
       --error-shadow-colour: #800;
     }
@@ -68,6 +68,10 @@ export const GlobalStyle = createGlobalStyle`
   ::selection {
     color: var(--background-colour);
     background-color: var(--text-colour);
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    font-weight: normal;
   }
 
   html {

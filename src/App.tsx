@@ -1,9 +1,11 @@
 import React, { type ReactElement, useEffect, useState } from "react";
 
+import { Head } from "./Head";
 import { Loading } from "./Loading";
 import {
   Container,
   ErrorMessage,
+  GlobalStyle,
   Label,
   Law as StyledLaw,
   List as StyledList,
@@ -19,13 +21,22 @@ const API_URL = "https://murphy.gnlc.me/";
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
 interface LawProps {
+  titleTag?: "h1" | "h2" | "h3";
   item: IItem;
   size?: { [key in string]: ISize["size"] };
 }
 
-const Law: React.FC<LawProps> = ({ item, size }): ReactElement => (
+const Law: React.FC<LawProps> = ({
+  item,
+  size,
+  titleTag = "h2",
+}): ReactElement => (
   <>
-    {item.title && <Title size={size?.title}>{item.title}</Title>}
+    {item.title && (
+      <Title as={titleTag} size={size?.title}>
+        {item.title}
+      </Title>
+    )}
     {item.law && <StyledLaw size={size?.law}>{item.law}</StyledLaw>}
   </>
 );
@@ -67,7 +78,7 @@ const Corollaries: React.FC<{ items: ICorollary[] }> = ({
 
 const Wrapper: React.FC<{ item: IItem }> = ({ item }): ReactElement => (
   <StyledWrapper key={JSON.stringify(item)}>
-    <Law item={item} />
+    <Law item={item} titleTag="h1" />
     {item.laws && <List items={item.laws} />}
     {item.corollary && <Corollary item={item.corollary} />}
     {item.corollaries && <Corollaries items={item.corollaries} />}
@@ -113,13 +124,17 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Container>
-      {loading && <Loading />}
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-      {data?.data?.map((item: IItem) => (
-        <Wrapper key={JSON.stringify(item)} item={item} />
-      ))}
-    </Container>
+    <>
+      <Head />
+      <GlobalStyle />
+      <Container>
+        {loading && <Loading />}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {data?.data?.map((item: IItem) => (
+          <Wrapper key={JSON.stringify(item)} item={item} />
+        ))}
+      </Container>
+    </>
   );
 };
 
