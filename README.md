@@ -1,6 +1,6 @@
 # React Murphy's Law
 
-Show random entry from [https://murphy.gnlc.me/]() API.
+Show random entry from [https://murphy.gnlc.me/](https://murphy.gnlc.me/) API.
 
 ---
 
