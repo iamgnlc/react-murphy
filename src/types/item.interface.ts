@@ -1,12 +1,12 @@
-export interface IItem {
+export interface ItemProps {
   title?: string | null;
   law: string;
   laws?: string[] | null;
-  corollary?: ICorollary | null;
-  corollaries?: ICorollary[] | null;
+  corollary?: CorollaryProps | null;
+  corollaries?: CorollaryProps[] | null;
 }
 
-export interface ICorollary {
+export interface CorollaryProps {
   title?: string | null;
   law: string;
 }

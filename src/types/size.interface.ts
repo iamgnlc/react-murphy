@@ -1,3 +1,3 @@
-export interface ISize {
+export interface SizeProps {
   size?: "s" | "m" | "l";
 }

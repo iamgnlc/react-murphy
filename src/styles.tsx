@@ -1,7 +1,7 @@
 import { fadeIn } from "react-animations";
 import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
-import { type ISize } from "./types/size.interface";
+import { type SizeProps } from "./types/size.interface";
 
 const fader = keyframes`${fadeIn}`;
 
@@ -116,7 +116,7 @@ export const Wrapper = styled.div`
   flex-grow: 0.8;
 `;
 
-export const Title = styled.p<ISize>`
+export const Title = styled.p<SizeProps>`
   font-size: ${(props) => {
     switch (props.size) {
       case "s":
@@ -134,7 +134,7 @@ export const Title = styled.p<ISize>`
   text-shadow: 1px 1px 1px var(--text-shadow-colour);
 `;
 
-export const Law = styled.p<ISize>`
+export const Law = styled.p<SizeProps>`
   font-size: ${(props) => {
     switch (props.size) {
       case "s":

@@ -13,7 +13,7 @@ import {
   Title,
   Wrapper as StyledWrapper,
 } from "./styles";
-import { type ICorollary, type IItem, type ISize } from "./types/";
+import { type CorollaryProps, type ItemProps, type SizeProps } from "./types/";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
@@ -22,8 +22,8 @@ const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
 interface LawProps {
   titleTag?: "h1" | "h2" | "h3";
-  item: IItem;
-  size?: { [key in string]: ISize["size"] };
+  item: ItemProps;
+  size?: { [key in string]: SizeProps["size"] };
 }
 
 const Law: React.FC<LawProps> = ({
@@ -41,7 +41,9 @@ const Law: React.FC<LawProps> = ({
   </>
 );
 
-const List: React.FC<{ items: IItem["laws"] }> = ({ items }): ReactElement => (
+const List: React.FC<{ items: ItemProps["laws"] }> = ({
+  items,
+}): ReactElement => (
   <StyledList>
     {items?.map((law) => (
       <ListElement key={JSON.stringify(law)}>
@@ -54,14 +56,16 @@ const List: React.FC<{ items: IItem["laws"] }> = ({ items }): ReactElement => (
   </StyledList>
 );
 
-const Corollary: React.FC<{ item: ICorollary }> = ({ item }): ReactElement => (
+const Corollary: React.FC<{ item: CorollaryProps }> = ({
+  item,
+}): ReactElement => (
   <>
     <Label>Corollary:</Label>
     <Law item={item} size={{ title: "s", law: "s" }} />
   </>
 );
 
-const Corollaries: React.FC<{ items: ICorollary[] }> = ({
+const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
   items,
 }): ReactElement => (
   <>
@@ -76,7 +80,7 @@ const Corollaries: React.FC<{ items: ICorollary[] }> = ({
   </>
 );
 
-const Wrapper: React.FC<{ item: IItem }> = ({ item }): ReactElement => (
+const Wrapper: React.FC<{ item: ItemProps }> = ({ item }): ReactElement => (
   <StyledWrapper key={JSON.stringify(item)}>
     <Law item={item} titleTag="h1" />
     {item.laws && <List items={item.laws} />}
@@ -87,7 +91,7 @@ const Wrapper: React.FC<{ item: IItem }> = ({ item }): ReactElement => (
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<{ data: IItem[] }>();
+  const [data, setData] = useState<{ data: ItemProps[] }>();
   const [error, setError] = useState(null);
 
   const fetchData = async (): Promise<void> => {
@@ -130,7 +134,7 @@ const App: React.FC = () => {
       <Container>
         {loading && <Loading />}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        {data?.data?.map((item: IItem) => (
+        {data?.data?.map((item: ItemProps) => (
           <Wrapper key={JSON.stringify(item)} item={item} />
         ))}
       </Container>

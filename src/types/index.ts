@@ -1,2 +1,2 @@
-export { type ICorollary, type IItem } from "./item.interface";
-export { type ISize } from "./size.interface";
+export { type CorollaryProps, type ItemProps } from "./item.interface";
+export { type SizeProps } from "./size.interface";
