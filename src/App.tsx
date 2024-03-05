@@ -96,9 +96,7 @@ const App: React.FC = () => {
 
   const fetchData = async (): Promise<void> => {
     fetch(API_URL)
-      .then(async (response) => {
-        return await response.json();
-      })
+      .then(async (response) => await response.json())
       .then((data) => {
         setError(null);
         setData(data);
