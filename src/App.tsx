@@ -15,8 +15,8 @@ import {
 } from "./styles";
 import { type CorollaryProps, type ItemProps, type SizeProps } from "./types/";
 
-const API_URL = "https://murphy.gnlc.me/";
-// const API_URL = "http://127.0.0.1:8000/";
+// const API_URL = "https://murphy.gnlc.me/";
+const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
@@ -98,10 +98,13 @@ const App: React.FC = () => {
     fetch(API_URL)
       .then(async (response) => await response.json())
       .then((data) => {
-        setError(null);
-        setData(data);
+        if (data.code === 200) {
+          setError(null);
+          setData(data);
+        } else setError(data.status);
       })
       .catch((error) => {
+        setData(undefined);
         setError(error.message);
       })
       .finally(() => {
