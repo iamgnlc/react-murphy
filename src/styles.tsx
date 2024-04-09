@@ -177,7 +177,7 @@ export const ListElement = styled.li`
   }
 `;
 
-export const ErrorMessage = styled.div`
+export const ErrorMessage = styled.p`
   color: var(--error-colour);
   text-shadow: 1px 1px 1px var(--error-shadow-colour);
 `;
