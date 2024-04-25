@@ -15,8 +15,8 @@ import {
 } from "./styles";
 import { type CorollaryProps, type ItemProps, type SizeProps } from "./types/";
 
-// const API_URL = "https://murphy.gnlc.me/";
-const API_URL = "http://127.0.0.1:8000/";
+const API_URL = "https://murphy.gnlc.me/";
+// const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
