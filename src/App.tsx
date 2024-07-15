@@ -13,18 +13,12 @@ import {
   Title,
   Wrapper as StyledWrapper,
 } from "./styles";
-import { type CorollaryProps, type ItemProps, type SizeProps } from "./types/";
+import type { CorollaryProps, ItemProps, LawProps } from "./types/";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
 
 const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
-
-interface LawProps {
-  titleTag?: "h1" | "h2" | "h3";
-  item: ItemProps;
-  size?: { [key in string]: SizeProps["size"] };
-}
 
 const Law: React.FC<LawProps> = ({
   item,
