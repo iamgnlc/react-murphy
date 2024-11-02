@@ -1,2 +1,2 @@
-export type { CorollaryProps, ItemProps, LawProps } from "./item.interface";
-export { type SizeProps } from "./size.interface";
+export type { CorollaryProps, ItemProps, LawProps } from "./Item.interface";
+export { type SizeProps } from "./Size.interface";

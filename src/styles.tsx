@@ -1,7 +1,7 @@
 import { fadeIn } from "react-animations";
 import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
-import { type SizeProps } from "./types/size.interface";
+import { type SizeProps } from "./types/Size.interface";
 
 const fader = keyframes`${fadeIn}`;
 

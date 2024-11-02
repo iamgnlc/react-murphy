@@ -76,7 +76,7 @@ const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
 
 const Wrapper: React.FC<{ item: ItemProps }> = ({ item }): ReactElement => (
   <StyledWrapper key={JSON.stringify(item)}>
-    <Law item={item} titleTag="h1" />
+    {item.law && <Law item={item} titleTag="h1" />}
     {item.laws && <List items={item.laws} />}
     {item.corollary && <Corollary item={item.corollary} />}
     {item.corollaries && <Corollaries items={item.corollaries} />}
