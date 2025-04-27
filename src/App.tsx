@@ -88,8 +88,12 @@ const App: React.FC = () => {
   const [data, setData] = useState<{ data: ItemProps[] }>();
   const [error, setError] = useState(null);
 
+  const num = Number(window.location.pathname.replace("/", ""));
+
+  const apiUrl = num ? `${API_URL}${num}` : API_URL;
+
   const fetchData = async (): Promise<void> => {
-    fetch(API_URL)
+    fetch(apiUrl)
       .then(async (response) => await response.json())
       .then((data) => {
         if (data.code === 200) {
