@@ -1,4 +1,9 @@
-import React, { type ReactElement, useEffect, useState } from "react";
+import React, {
+  type ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { Head } from "./Head";
 import { Loading } from "./Loading";
@@ -39,8 +44,8 @@ const List: React.FC<{ items: ItemProps["laws"] }> = ({
   items,
 }): ReactElement => (
   <StyledList>
-    {items?.map((law) => (
-      <ListElement key={JSON.stringify(law)}>
+    {items?.map((law, index) => (
+      <ListElement key={`i${index}`}>
         <Law
           item={typeof law === "string" ? { law } : law}
           size={{ title: "s", law: "s" }}
@@ -65,8 +70,8 @@ const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
   <>
     <Label>Corollaries:</Label>
     <StyledList>
-      {items.map((item) => (
-        <ListElement key={JSON.stringify(item)}>
+      {items.map((item, index) => (
+        <ListElement key={`i${index}`}>
           <Law item={item} size={{ title: "s", law: "s" }} />
         </ListElement>
       ))}
@@ -92,7 +97,7 @@ const App: React.FC = () => {
 
   const apiUrl = num ? `${API_URL}${num}` : API_URL;
 
-  const fetchData = async (): Promise<void> => {
+  const fetchData = useCallback(async (): Promise<void> => {
     fetch(apiUrl)
       .then(async (response) => await response.json())
       .then((data) => {
@@ -108,7 +113,7 @@ const App: React.FC = () => {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [apiUrl]);
 
   useEffect(() => {
     setLoading(true);
@@ -133,8 +138,8 @@ const App: React.FC = () => {
       <Container>
         {loading && <Loading />}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        {data?.data?.map((item: ItemProps) => (
-          <Wrapper key={JSON.stringify(item)} item={item} />
+        {data?.data?.map((item: ItemProps, index) => (
+          <Wrapper key={`i${index}`} item={item} />
         ))}
       </Container>
     </>
