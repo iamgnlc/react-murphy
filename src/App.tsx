@@ -1,4 +1,9 @@
-import React, { type ReactElement, useEffect, useState, useCallback } from "react";
+import React, {
+  type ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { Head } from "./Head";
 import { Loading } from "./Loading";
@@ -39,9 +44,8 @@ const List: React.FC<{ items: ItemProps["laws"] }> = ({
   items,
 }): ReactElement => (
   <StyledList>
-    {/* Using index as a key because there is no stable ID available for laws. */}
     {items?.map((law, index) => (
-      <ListElement key={index}>
+      <ListElement key={`i${index}`}>
         <Law
           item={typeof law === "string" ? { law } : law}
           size={{ title: "s", law: "s" }}
@@ -66,9 +70,8 @@ const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
   <>
     <Label>Corollaries:</Label>
     <StyledList>
-      {/* Using index as a key because there is no stable ID available for corollaries. */}
       {items.map((item, index) => (
-        <ListElement key={index}>
+        <ListElement key={`i${index}`}>
           <Law item={item} size={{ title: "s", law: "s" }} />
         </ListElement>
       ))}
@@ -94,9 +97,6 @@ const App: React.FC = () => {
 
   const apiUrl = num ? `${API_URL}${num}` : API_URL;
 
-  // useCallback is used to memoize fetchData. This prevents it from being recreated on every render,
-  // which can be beneficial for performance. It also stabilizes the function's identity,
-  // which would be important if it were a dependency of other hooks like useEffect.
   const fetchData = useCallback(async (): Promise<void> => {
     fetch(apiUrl)
       .then(async (response) => await response.json())
@@ -138,9 +138,8 @@ const App: React.FC = () => {
       <Container>
         {loading && <Loading />}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        {/* Using index as a key because there is no stable ID available for items. */}
         {data?.data?.map((item: ItemProps, index) => (
-          <Wrapper key={index} item={item} />
+          <Wrapper key={`i${index}`} item={item} />
         ))}
       </Container>
     </>
