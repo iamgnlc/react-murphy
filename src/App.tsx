@@ -93,9 +93,18 @@ const App: React.FC = () => {
   const [data, setData] = useState<{ data: ItemProps[] }>();
   const [error, setError] = useState(null);
 
-  const num = Number(window.location.pathname.replace("/", ""));
+  const [firstSegment, secondSegment] = window.location.pathname
+    .split("/")
+    .filter(Boolean);
 
-  const apiUrl = num ? `${API_URL}${num}` : API_URL;
+  const locale =
+    firstSegment !== undefined && Number.isNaN(Number(firstSegment))
+      ? firstSegment
+      : undefined;
+  const num = Number(secondSegment);
+
+  const apiPath = [locale, num && String(num)].filter(Boolean).join("/");
+  const apiUrl = `${API_URL}${apiPath}`;
 
   const fetchData = useCallback(async (): Promise<void> => {
     fetch(apiUrl)
