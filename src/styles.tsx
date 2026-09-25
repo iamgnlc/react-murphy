@@ -185,6 +185,7 @@ export const Refresh = styled.button`
   color: var(--label-colour);
   background: none;
   border: none;
+  margin-bottom: 1.5rem;
   padding: 0;
   cursor: pointer;
 `;
