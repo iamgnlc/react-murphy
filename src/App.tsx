@@ -16,15 +16,16 @@ import {
   Law as StyledLaw,
   List as StyledList,
   ListElement,
+  Refresh,
+  Root,
   Title,
   Wrapper as StyledWrapper,
 } from "./styles";
 import type { CorollaryProps, ItemProps, LawProps } from "./types/";
+import { getRefreshInterval } from "./utils";
 
 const API_URL = "https://murphy.gnlc.me/";
 // const API_URL = "http://127.0.0.1:8000/";
-
-const REFRESH_INTERVAL = 10000; // 0 to disable auto-refresh.
 
 const Law: React.FC<LawProps> = ({
   item,
@@ -132,24 +133,33 @@ const App: React.FC = () => {
       });
   }, [apiUrl]);
 
+  const refresh = (): void => {
+    setLoading(true);
+    setData(undefined);
+    void fetchData();
+  };
+
   useEffect(() => {
     setLoading(true);
     setData(undefined);
     void fetchData();
+  }, [fetchData]);
 
-    if (REFRESH_INTERVAL) {
-      const interval = setInterval(() => {
-        void fetchData();
-      }, REFRESH_INTERVAL);
+  // Re-fetch once the reader has had time to read the current content.
+  useEffect(() => {
+    if (data === undefined) return;
 
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, []);
+    const interval = setInterval(() => {
+      void fetchData();
+    }, getRefreshInterval(data));
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [data, fetchData]);
 
   return (
-    <>
+    <Root>
       <Head />
       <GlobalStyle />
       <Container>
@@ -159,7 +169,10 @@ const App: React.FC = () => {
           <Wrapper key={`i${index}`} item={item} locale={locale} />
         ))}
       </Container>
-    </>
+      {!loading && !error && (
+        <Refresh onClick={refresh}>{lang[locale].refresh}</Refresh>
+      )}
+    </Root>
   );
 };
 

@@ -16,6 +16,9 @@ npm run typecheck
 cout "*** Run lint ***"
 npm run lint
 
+cout "*** Run unit tests ***"
+npm test
+
 cout "*** Clean old build ***"
 npm run clean
 

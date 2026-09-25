@@ -89,11 +89,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
-    ${verticalCentered}
-
     height: 100%;
     min-height: 100vh;
-    background: radial-gradient(var(--background-colour) 75%, var(--radial-colour));
   }
 `;
 
@@ -106,7 +103,6 @@ export const Container = styled.div`
   height: 100%;
   line-height: 2.25rem;
 `;
-
 export const Wrapper = styled.div`
   ${frame};
   ${childrenMargin};
@@ -180,4 +176,29 @@ export const ListElement = styled.li`
 export const ErrorMessage = styled.p`
   color: var(--error-colour);
   text-shadow: 1px 1px 1px var(--error-shadow-colour);
+`;
+
+export const Refresh = styled.button`
+  font-family: inherit;
+  font-size: 1.15em;
+  font-style: italic;
+  color: var(--label-colour);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+`;
+
+export const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    var(--background-colour) 75%,
+    var(--radial-colour)
+  );
 `;
