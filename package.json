@@ -25,7 +25,6 @@
     "react": "^19.3.0",
     "react-animations": "^1.0.0",
     "react-dom": "^19.3.0",
-    "react-helmet": "^6.1.0",
     "styled-components": "^6"
   },
   "devDependencies": {
@@ -37,7 +36,6 @@
     "@types/react": "^19.3.0",
     "@types/react-animations": "~1.0.3",
     "@types/react-dom": "^19.3.0",
-    "@types/react-helmet": "~6.1.11",
     "@vitejs/plugin-react": "^6.1.1",
     "eslint": "^10.11.0",
     "eslint-config-love": "^157.0.0",
@@ -52,12 +50,8 @@
     "vite": "^8.3.1",
     "vitest": "^5.0.2"
   },
-  "overrides": {
-    "@types/react-helmet": {
-      "@types/react": "$@types/react"
-    }
-  },
   "allowScripts": {
-    "unrs-resolver@1.12.2": true
+    "unrs-resolver@1.12.2": true,
+    "fsevents@2.3.3": true
   }
 }
