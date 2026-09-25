@@ -9,11 +9,18 @@ cout(){
     echo "\\n${YELLOW}${1} ${NC}\\n" # <-- bash
 }
 
+
 cout "*** Run typecheck ***"
 npm run typecheck
+
 cout "*** Run lint ***"
 npm run lint
+
+cout "*** Clean old build ***"
+npm run clean
+
 cout "*** Clean old build ***"
 npm run build
+
 cout "*** Deploy ***"
 npm run deploy

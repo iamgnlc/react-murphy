@@ -11,6 +11,7 @@
   "scripts": {
     "build": "vite build",
     "ci": "sh ci.sh",
+    "clean": "rm -rf build",
     "deploy": "firebase deploy",
     "dev": "vite",
     "lint": "eslint \"**/*.{ts,tsx,js,jsx}\"",
