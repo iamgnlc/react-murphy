@@ -1,13 +1,13 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const title = import.meta.env.VITE_TITLE;
+const { VITE_TITLE, VITE_AUTHOR }: ImportMetaEnv = import.meta.env;
 
 const Head = memo(() => (
   <Helmet>
-    <title>{title}</title>
-    <meta property="og:title" content={title} />
-    <meta name="author" content={import.meta.env.VITE_AUTHOR} />
+    <title>{VITE_TITLE}</title>
+    <meta property="og:title" content={VITE_TITLE} />
+    <meta name="author" content={VITE_AUTHOR} />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />

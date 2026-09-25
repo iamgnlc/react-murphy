@@ -1,12 +1,15 @@
 import { act, cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, type Mock, vi } from "vitest";
 
 import { App } from "../App";
 import { MIN_REFRESH_INTERVAL } from "../utils";
 
+const HTTP_OK = 200;
+const HTTP_NOT_FOUND = 404;
+
 const mockPayload = {
-  code: 200,
+  code: HTTP_OK,
   data: [
     {
       title: "First Law of Socio-Genetics",
@@ -16,14 +19,24 @@ const mockPayload = {
   status: "OK",
 };
 
-type FetchMock = ReturnType<typeof vi.fn> & { mock: { calls: unknown[][] } };
-
-let fetchMock: FetchMock;
+let fetchMock: Mock = vi.fn();
 
 const mockFetch = (payload: unknown): void => {
-  fetchMock = vi.fn().mockResolvedValue({
-    json: async () => payload,
-  }) as FetchMock;
+  fetchMock = vi
+    .fn<() => Promise<{ json: () => Promise<unknown> }>>()
+    .mockResolvedValue({ json: async () => await Promise.resolve(payload) });
+  vi.stubGlobal("fetch", fetchMock);
+};
+
+const mockFetchError = (error: unknown): void => {
+  fetchMock = vi.fn<() => Promise<never>>().mockRejectedValue(error);
+  vi.stubGlobal("fetch", fetchMock);
+};
+
+const mockFetchPending = (): void => {
+  // A request that never settles keeps the app in the loading state.
+  const { promise } = Promise.withResolvers<never>();
+  fetchMock = vi.fn<() => Promise<never>>().mockReturnValue(promise);
   vi.stubGlobal("fetch", fetchMock);
 };
 
@@ -63,7 +76,7 @@ describe("App", () => {
   });
 
   it("shows the error message when the API responds with a failure", async () => {
-    mockFetch({ code: 404, status: "Not Found" });
+    mockFetch({ code: HTTP_NOT_FOUND, status: "Not Found" });
     render(<App />);
     await flushAsync();
 
@@ -72,10 +85,7 @@ describe("App", () => {
   });
 
   it("shows a network error when the request fails", async () => {
-    fetchMock = vi.fn().mockRejectedValue(
-      new Error("Network error"),
-    ) as FetchMock;
-    vi.stubGlobal("fetch", fetchMock);
+    mockFetchError(new Error("Network error"));
     render(<App />);
     await flushAsync();
 
@@ -96,16 +106,17 @@ describe("App", () => {
     ).toBeTruthy();
   });
 
-  it("hides the Next button while loading", async () => {
-    mockFetch(mockPayload);
+  it("hides the Next button while loading", () => {
+    mockFetchPending();
     render(<App />);
 
     // Loading state renders the spinner and no Next button.
     expect(screen.queryByRole("button", { name: "Next" })).toBeNull();
+    expect(screen.getByRole("status")).toBeDefined();
   });
 
   it("hides the Next button when the API fails", async () => {
-    mockFetch({ code: 404, status: "Not Found" });
+    mockFetch({ code: HTTP_NOT_FOUND, status: "Not Found" });
     render(<App />);
     await flushAsync();
 
@@ -119,16 +130,14 @@ describe("App", () => {
     await flushAsync();
 
     mockFetch({
-      code: 200,
+      code: HTTP_OK,
       data: [{ title: "Second Law of Socio-Genetics", law: "New law." }],
     });
 
-    userEvent.click(screen.getByRole("button", { name: "Next" }));
+    await userEvent.click(screen.getByRole("button", { name: "Next" }));
     await flushAsync();
 
-    expect(
-      screen.getByText("Second Law of Socio-Genetics"),
-    ).toBeDefined();
+    expect(screen.getByText("Second Law of Socio-Genetics")).toBeDefined();
   });
 
   it("auto-refreshes after the reading-time interval", async () => {
@@ -141,14 +150,14 @@ describe("App", () => {
     expect(fetchMock.mock.calls.length).toBe(1);
 
     mockFetch({
-      code: 200,
+      code: HTTP_OK,
       data: [{ title: "Auto-refreshed law", law: "Murphy was optimistic." }],
     });
 
     // Short payload, so the interval equals the minimum. Advance multiple
     // cycles so each refetch has time to settle before the next tick.
     await act(async () => {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i += 1) {
         await vi.advanceTimersByTimeAsync(MIN_REFRESH_INTERVAL);
         await Promise.resolve();
         await Promise.resolve();

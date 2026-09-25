@@ -1,15 +1,10 @@
 import React, { memo } from "react";
-import ReactLoadingImport from "react-loading";
 
-// react-loading is CommonJS with a fake `__esModule` marker, so bundler
-// interop can yield its component double-wrapped as `{ default: Component }`.
-// Unwrap it; the fallback keeps this correct if interop changes.
-const ReactLoading = (
-  (ReactLoadingImport as unknown as { default?: unknown }).default ??
-  ReactLoadingImport
-) as typeof ReactLoadingImport;
+import { Spinner } from "./styles";
 
-const Loading: React.FC = memo(() => <ReactLoading type="spin" color="#ccc" />);
+const Loading: React.FC = memo(() => (
+  <Spinner role="status" aria-label="Loading" />
+));
 
 Loading.displayName = "Loading";
 

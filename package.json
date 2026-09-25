@@ -22,33 +22,31 @@
   },
   "dependencies": {
     "@fvilers/disable-react-devtools": "^1.3.0",
-    "react": "^18.3.0",
+    "react": "^19.3.0",
     "react-animations": "^1.0.0",
-    "react-dom": "^18.3.0",
+    "react-dom": "^19.3.0",
     "react-helmet": "^6.1.0",
-    "react-loading": "^2.0.3",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/eslint": "~8.56.10",
-    "@types/eslint-config-prettier": "~6.11.3",
-    "@types/react": "~18.3.3",
+    "@eslint-react/eslint-plugin": "^5.20.8",
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
+    "@types/react": "^19.3.0",
     "@types/react-animations": "~1.0.3",
-    "@types/react-dom": "~18.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/react-helmet": "~6.1.11",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@vitejs/plugin-react": "^6.1.1",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-standard-with-typescript": "^40.0.0",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint": "^10.11.0",
+    "eslint-config-love": "^157.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
+    "globals": "^17.12.0",
+    "jiti": "^2.7.0",
     "jsdom": "^30.1.1",
     "typescript": "~5.9.3",
     "vite": "^8.3.1",
@@ -58,5 +56,8 @@
     "@types/react-helmet": {
       "@types/react": "$@types/react"
     }
+  },
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true
   }
 }

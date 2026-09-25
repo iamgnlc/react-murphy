@@ -1,4 +1,4 @@
-import { type SizeProps } from ".";
+import type { SizeProps } from ".";
 
 export interface ItemProps extends CorollaryProps {
   laws?: string[] | null;
@@ -14,5 +14,5 @@ export interface CorollaryProps {
 export interface LawProps {
   titleTag?: "h1" | "h2" | "h3";
   item: ItemProps;
-  size?: { [key in string]: SizeProps["size"] };
+  size?: Record<string, SizeProps["size"]>;
 }

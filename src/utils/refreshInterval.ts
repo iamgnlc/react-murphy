@@ -5,7 +5,7 @@ const MS_PER_MINUTE = 60 * 1000;
 
 export const countWords = (value: unknown): number => {
   if (typeof value === "string") {
-    return value.split(/\s+/).filter(Boolean).length;
+    return value.split(/\s+/u).filter(Boolean).length;
   }
   if (Array.isArray(value)) {
     return value.reduce<number>((sum, item) => sum + countWords(item), 0);

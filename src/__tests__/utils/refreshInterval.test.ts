@@ -54,11 +54,11 @@ describe("countWords", () => {
 describe("getRefreshInterval", () => {
   it("is the reading time of the payload in milliseconds", () => {
     // 220 words at 220 wpm = exactly one minute.
-    expect(getRefreshInterval("word ".repeat(219) + "word")).toBe(60_000);
+    expect(getRefreshInterval(`${"word ".repeat(219)  }word`)).toBe(60_000);
   });
 
   it("scales linearly with word count", () => {
-    const words = "a ".repeat(110 - 1) + "a"; // 110 words
+    const words = `${"a ".repeat(110 - 1)  }a`; // 110 words
     expect(getRefreshInterval(words)).toBe(30_000);
   });
 

@@ -1,9 +1,15 @@
 import { fadeIn } from "react-animations";
 import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
-import { type SizeProps } from "./types/Size.interface";
+import type { SizeProps } from "./types/Size.interface";
 
 const fader = keyframes`${fadeIn}`;
+
+const spinner = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 const frame = css`
   --size: 1rem;
@@ -171,6 +177,14 @@ export const ListElement = styled.li`
   * {
     margin: 0;
   }
+`;
+
+export const Spinner = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0.2rem dashed var(--label-colour);
+  border-radius: 50%;
+  animation: 1s ${spinner} linear infinite;
 `;
 
 export const ErrorMessage = styled.p`
