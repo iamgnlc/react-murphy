@@ -1,2 +1,2 @@
 export const isEnv = (env: string | undefined): boolean =>
-  [env].includes(process.env.NODE_ENV);
+  [env].includes(import.meta.env.MODE);

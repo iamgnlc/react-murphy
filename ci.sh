@@ -10,10 +10,10 @@ cout(){
 }
 
 cout "*** Run typecheck ***"
-yarn typecheck
+npm run typecheck
 cout "*** Run lint ***"
-yarn lint
+npm run lint
 cout "*** Clean old build ***"
-yarn build
+npm run build
 cout "*** Deploy ***"
-yarn deploy
+npm run deploy

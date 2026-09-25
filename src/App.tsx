@@ -6,6 +6,7 @@ import React, {
 } from "react";
 
 import { Head } from "./Head";
+import { lang } from "./lang";
 import { Loading } from "./Loading";
 import {
   Container,
@@ -55,20 +56,22 @@ const List: React.FC<{ items: ItemProps["laws"] }> = ({
   </StyledList>
 );
 
-const Corollary: React.FC<{ item: CorollaryProps }> = ({
+const Corollary: React.FC<{ item: CorollaryProps; locale: string }> = ({
   item,
+  locale = "en",
 }): ReactElement => (
   <>
-    <Label>Corollary:</Label>
+    <Label>{lang[locale].corollary}:</Label>
     <Law item={item} size={{ title: "s", law: "s" }} />
   </>
 );
 
-const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
+const Corollaries: React.FC<{ items: CorollaryProps[]; locale: string }> = ({
   items,
+  locale,
 }): ReactElement => (
   <>
-    <Label>Corollaries:</Label>
+    <Label>{lang[locale].corollaries}:</Label>
     <StyledList>
       {items.map((item, index) => (
         <ListElement key={`i${index}`}>
@@ -79,12 +82,17 @@ const Corollaries: React.FC<{ items: CorollaryProps[] }> = ({
   </>
 );
 
-const Wrapper: React.FC<{ item: ItemProps }> = ({ item }): ReactElement => (
+const Wrapper: React.FC<{ item: ItemProps; locale: string }> = ({
+  item,
+  locale,
+}): ReactElement => (
   <StyledWrapper key={JSON.stringify(item)}>
     {item.law && <Law item={item} titleTag="h1" />}
     {item.laws && <List items={item.laws} />}
-    {item.corollary && <Corollary item={item.corollary} />}
-    {item.corollaries && <Corollaries items={item.corollaries} />}
+    {item.corollary && <Corollary item={item.corollary} locale={locale} />}
+    {item.corollaries && (
+      <Corollaries items={item.corollaries} locale={locale} />
+    )}
   </StyledWrapper>
 );
 
@@ -97,10 +105,10 @@ const App: React.FC = () => {
     .split("/")
     .filter(Boolean);
 
-  const locale =
-    firstSegment !== undefined && Number.isNaN(Number(firstSegment))
-      ? firstSegment
-      : undefined;
+  const isLang = (value: string | undefined): value is string =>
+    value !== undefined && value in lang;
+
+  const locale = isLang(firstSegment) ? firstSegment : "en";
   const num = Number(secondSegment);
 
   const apiPath = [locale, num && String(num)].filter(Boolean).join("/");
@@ -148,7 +156,7 @@ const App: React.FC = () => {
         {loading && <Loading />}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         {data?.data?.map((item: ItemProps, index) => (
-          <Wrapper key={`i${index}`} item={item} />
+          <Wrapper key={`i${index}`} item={item} locale={locale} />
         ))}
       </Container>
     </>
