@@ -214,7 +214,7 @@ export const Root = styled.div`
   height: 100%;
   min-height: 100vh;
   background: radial-gradient(
-    var(--background-colour) 75%,
+    var(--background-colour) 60%,
     var(--radial-colour)
   );
 `;
