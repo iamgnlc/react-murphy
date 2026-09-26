@@ -202,6 +202,7 @@ export const Refresh = styled.button`
   margin-bottom: 1.5rem;
   padding: 0;
   cursor: pointer;
+  animation: 1s ${fader} alternate;
 `;
 
 export const Root = styled.div`

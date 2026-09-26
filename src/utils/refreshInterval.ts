@@ -1,5 +1,5 @@
 export const READING_SPEED_WPM = 220; // Average words a person can read per minute.
-export const MIN_REFRESH_INTERVAL = 5000; // Shortest allowed interval, in milliseconds.
+export const MIN_REFRESH_INTERVAL = 10000; // Shortest allowed interval, in milliseconds.
 
 const MS_PER_MINUTE = 60 * 1000;
 

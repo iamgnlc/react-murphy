@@ -3,8 +3,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { App } from "./App";
-import { isEnv } from "./utils";
 import { logo } from "./logo";
+import { isEnv } from "./utils";
 
 logo();
 
