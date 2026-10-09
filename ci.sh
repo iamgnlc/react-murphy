@@ -22,7 +22,7 @@ npm test
 cout "*** Clean old build ***"
 npm run clean
 
-cout "*** Clean old build ***"
+cout "*** Build ***"
 npm run build
 
 cout "*** Deploy ***"
